@@ -37,15 +37,25 @@
                 </div>
             </div>
         </div>
-        <a href="">
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required><br>
             <button
+                    type="submit"
                     class="bg-emerald-600  py-2 md:px-5 md:py-2.5 font-mono text-center text-sm rounded-lg text-white hover:bg-emerald-400">
                 Get Predict
             </button>
-        </a>
+        </form>
         <div>
             <div class="mt-2 font-mono font-bold">
-                <h1>Result of Severity Classifications of Your X-Ray Images</h1>
+                <h1 class="justify-self-center">Result of Severity Classifications of Your X-Ray Images</h1>
+            </div>
+            {% if uploaded_image %}
+            <img src="{{ uploaded_image }}" alt="Uploaded Image" class="justify-self-center py-5">
+            {% endif %}
+            <div>
+                {% if prediction %}
+                <h1>Grade: {{ prediction }}</h1>
+                {% endif %}
             </div>
         </div>
     </div>
