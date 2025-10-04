@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.10 (web-knee-oa)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (web-knee-oa)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="anaconda" project-jdk-type="Python SDK" />
 </project>

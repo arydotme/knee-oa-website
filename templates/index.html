@@ -8,18 +8,19 @@
 </head>
 <body class="bg-gray-100">
 <div class="mx-5 md:mx-96 my-3 md:my-5 font-mono">
-    <h1 class="text-4xl text-emerald-600 mb-4 font-bold text-center">Grade Classification Knee Osteoarthritis</h1>
+    <h1 class="text-2xl md:text-4xl text-emerald-600 mb-4 font-bold text-center">Knee Osteoarthritis Detection and Severity Grading</h1>
     <p class="text-sm md:text-lg text-center">
-        Automated Knee Osteoarthritis Detection with CNN-VGG16 based Kellgren & Lawrence Methode
+        Automated Knee Osteoarthritis Detection using CNN-VGG16 based on the Kellgren & Lawrence Method
     </p>
 </div>
 
 <div class="mx-5 md:mx-96">
-    <div class="grid grid-flow-col grid-rows-1 lg:grid-rows-2 gap-x-24 gap-y-5">
-        <div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-24">
+        <form method="POST" action="/" enctype="multipart/form-data">
             <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 py-10">
                 <div class="text-center">
-                    <svg id="upload-icon" viewBox="0 0 24 24" fill="currentColor" data-slot="icon" aria-hidden="true"
+                    <svg id="upload-icon" viewBox="0 0 24 24" fill="currentColor" data-slot="icon"
+                         aria-hidden="true"
                          class="mx-auto size-12 text-gray-300 dark:text-gray-600">
                         <path d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z"
                               clip-rule="evenodd" fill-rule="evenodd"/>
@@ -28,33 +29,34 @@
                     <div class="mt-4 flex text-sm/6 text-gray-600 dark:text-gray-400">
                         <label for="file-upload"
                                class="relative cursor-pointer rounded-md bg-transparent font-semibold text-indigo-600 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:focus-within:outline-indigo-500 dark:hover:text-indigo-30">
-                            <span>Upload Image X-Ray</span>
-                            <input id="file-upload" type="file" name="file-upload" class="sr-only"/>
+                            <span>Upload a Knee X-Ray Image</span>
+                            <input id="file-upload" type="file" name="file" class="sr-only" accept="image/*"/>
                         </label>
                         <p class="pl-1">or drag and drop</p>
                     </div>
                     <p class="text-xs/5 text-gray-600 dark:text-gray-400">PNG, JPG, up to 10MB</p>
                 </div>
             </div>
-        </div>
-        <form method="POST" enctype="multipart/form-data">
-            <input type="file" name="file" accept="image/*" required><br>
-            <button
-                    type="submit"
-                    class="bg-emerald-600  py-2 md:px-5 md:py-2.5 font-mono text-center text-sm rounded-lg text-white hover:bg-emerald-400">
-                Get Predict
-            </button>
+            <div class="py-5">
+                <button
+                        type="submit"
+                        class="bg-emerald-600 py-2 w-full md:px-5 md:py-2.5 font-mono text-center text-sm rounded-lg text-white hover:bg-emerald-400">
+                    Get Predict
+                </button>
+            </div>
         </form>
         <div>
             <div class="mt-2 font-mono font-bold">
-                <h1 class="justify-self-center">Result of Severity Classifications of Your X-Ray Images</h1>
+                <h1 class="justify-self-center">Knee Osteoarthritis Severity Result</h1>
             </div>
             {% if uploaded_image %}
-            <img src="{{ uploaded_image }}" alt="Uploaded Image" class="justify-self-center py-5">
+            <img src="{{ url_for('static', filename='images/' ~ uploaded_image) }}" alt="Uploaded Image"
+                 class="justify-self-center py-5 max-w-full h-auto">
             {% endif %}
-            <div>
+            <div class="mt-4">
                 {% if prediction %}
-                <h1>Grade: {{ prediction }}</h1>
+                <h1 class="text-sm md:text-lg font-bold text-emerald-600">Predicted Grade: {{ prediction }}</h1>
+                <h1 class="text-sm md:text-lg font-bold text-emerald-600">Confidence Level: {{ probability }}</h1>
                 {% endif %}
             </div>
         </div>
